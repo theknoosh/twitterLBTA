@@ -22,6 +22,8 @@ class UserHeader: DatasourceCell {
     
     override func setupViews() {
         super.setupViews()
+        separatorLineView.isHidden = false // puts line between views
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
         addSubview(textLabel)
         textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
@@ -39,6 +41,9 @@ class UserFooter: DatasourceCell{
     
     override func setupViews() {
         super.setupViews()
+        separatorLineView.isHidden = false // puts line between views
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
+
         addSubview(textLabel)
         textLabel.anchor(topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, topConstant: 0, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
@@ -48,7 +53,11 @@ class UserCell: DatasourceCell {
     
     override var datasourceItem: Any?{
         didSet{
-            nameLabel.text = datasourceItem as? String
+            guard let user = datasourceItem as? User else {return}
+            nameLabel.text = user.name
+            addressLabel.text = user.userName
+            bioTextView.text = user.bioText
+            profileImageView.image = user.profileImage
         }
     }
     
@@ -62,6 +71,9 @@ class UserCell: DatasourceCell {
     
     override func setupViews() {
         super.setupViews()
+        separatorLineView.isHidden = false
+        separatorLineView.backgroundColor = UIColor(r: 230, g: 230, b: 230)
+
         backgroundColor = .white
         addSubview(profileImageView)
         addSubview(nameLabel)
@@ -78,7 +90,7 @@ class UserCell: DatasourceCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-//        label.text = "TEST test test"
+        label.text = "TEST test test"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
@@ -95,6 +107,7 @@ class UserCell: DatasourceCell {
         let textView = UITextView()
         textView.text = "IOS, Objective C, Swift, IOS Programming community. Join us for the new revolution of coding prowess."
         textView.font = UIFont.systemFont(ofSize: 15)
+        textView.backgroundColor = .clear
         return textView
     }()
     
